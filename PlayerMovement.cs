@@ -1,31 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
 	public CharacterController controller;
 	public float speed = 12f;
-	public float jumpSpeed = 400f;
+	public float jumpSpeed = 5f;
 	Vector3 velocity;
-	public float gravit = 5f;
+	public float gravity = -15f;
+	bool isGrounded;
+	public Transform groundcheck;
+	public LayerMask groundLayer;
+	float radius = 0.4f;
+	public GameObject respawnMenu;
 	// Update is called once per frame
 	void Update()
 	{
+		isGrounded = Physics.CheckSphere(groundcheck.position, radius, groundLayer);
+		if (isGrounded && velocity.y < 0)
+		{
+			velocity.y = -2f;
+		}
+
 		float x = Input.GetAxis("Horizontal");
 		float z = Input.GetAxis("Vertical");
 		Vector3 move = transform.right * x + transform.forward * z;
 		controller.Move(move * speed * Time.deltaTime);
-		velocity.y -= gravity * Time.deltaTime;
 
-		controller.Move(velocity * Time.deltaTime);
-		
 		// This if statement contains the code for jumping
-		if (controller.isGrounded & Input.GetButton("Jump"))
+		if (Input.GetButtonDown("Jump") && isGrounded)
 		{
-			velocity.y += jumpSpeed * Time.deltaTime;
-			controller.Move(velocity * Time.deltaTime);
+			velocity.y = Mathf.Sqrt(jumpSpeed * -2f * gravity);
 		}
+
+		velocity.y += gravity * Time.deltaTime;
+		controller.Move(velocity * Time.deltaTime);	
 
 	}
 }

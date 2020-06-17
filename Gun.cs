@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+	
 	public AudioSource fire;
 	public float damage = 10f;
 	public float range = 100f;
 	public Camera fpsCam;
 	public ParticleSystem muzzleFlash;
+	
 	// Update is called once per frame
 	void Update()
 	{
@@ -31,6 +31,5 @@ public class Gun : MonoBehaviour
 				target.TakeDamage(damage);
 			}
 		}
-
 	}
 }

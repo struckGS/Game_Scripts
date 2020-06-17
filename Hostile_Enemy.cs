@@ -4,7 +4,8 @@ public class Hostile_Enemy : MonoBehaviour
 {
     public GameObject respawnMenu;
     public GameObject crosshair;
-    
+    public GameObject Gun;
+    public GameObject destroyUI;
 
     private void Start()
     {
@@ -20,8 +21,8 @@ public class Hostile_Enemy : MonoBehaviour
             Time.timeScale = 0f;
             respawnMenu.SetActive(true);
             crosshair.SetActive(false);
-            
-
+            Gun.SetActive(false);
+            destroyUI.SetActive(false);
         }    
     }
 }
